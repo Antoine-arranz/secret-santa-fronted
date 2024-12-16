@@ -175,7 +175,7 @@ export const JoinGame: React.FC = () => {
         couple.person1 === participantName ? couple.person2 : couple.person1;
       return `(en couple avec ${partner})`;
     }
-    return "(célibataire)";
+    return "";
   };
 
   const joinGame = async () => {
@@ -204,7 +204,7 @@ export const JoinGame: React.FC = () => {
 
   return (
     <div className='join-game'>
-      <h2>Partie de Secret Santa</h2>
+      <h2>Partie de Secret Santacaca</h2>
       <p>Créée par: {game.adminName}</p>
 
       <div className='participants-status'>
