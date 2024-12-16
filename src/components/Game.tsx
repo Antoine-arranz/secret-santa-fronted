@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 interface Participant {
   name: string;
@@ -19,8 +20,6 @@ interface Game {
   participants: Participant[];
   couples: Couple[];
 }
-
-const API_URL = "https://secret-santa-backend-1sxi.onrender.com";
 
 export const CreateGame: React.FC = () => {
   const navigate = useNavigate();
@@ -61,31 +60,31 @@ export const CreateGame: React.FC = () => {
   };
 
   return (
-    <div className='create-game'>
+    <div className="create-game">
       <h2>Créer une nouvelle partie de Secret Santa</h2>
 
-      <div className='form-group'>
+      <div className="form-group">
         <label>Nom de l'administrateur:</label>
         <input
-          type='text'
+          type="text"
           value={adminName}
           onChange={(e) => setAdminName(e.target.value)}
-          placeholder='Votre nom'
+          placeholder="Votre nom"
         />
       </div>
 
-      <div className='form-group'>
+      <div className="form-group">
         <label>Ajouter un participant:</label>
         <input
-          type='text'
+          type="text"
           value={participantName}
           onChange={(e) => setParticipantName(e.target.value)}
-          placeholder='Nom du participant'
+          placeholder="Nom du participant"
         />
         <button onClick={addParticipant}>Ajouter</button>
       </div>
 
-      <div className='participants-list'>
+      <div className="participants-list">
         <h3>Participants:</h3>
         <ul>
           {participants.map((name, index) => (
@@ -94,10 +93,10 @@ export const CreateGame: React.FC = () => {
         </ul>
       </div>
 
-      <div className='form-group'>
+      <div className="form-group">
         <h3>Ajouter un couple:</h3>
         <select value={person1} onChange={(e) => setPerson1(e.target.value)}>
-          <option value=''>Sélectionner personne 1</option>
+          <option value="">Sélectionner personne 1</option>
           {participants.map((name, index) => (
             <option key={index} value={name}>
               {name}
@@ -105,7 +104,7 @@ export const CreateGame: React.FC = () => {
           ))}
         </select>
         <select value={person2} onChange={(e) => setPerson2(e.target.value)}>
-          <option value=''>Sélectionner personne 2</option>
+          <option value="">Sélectionner personne 2</option>
           {participants.map((name, index) => (
             <option key={index} value={name}>
               {name}
@@ -115,7 +114,7 @@ export const CreateGame: React.FC = () => {
         <button onClick={addCouple}>Ajouter le couple</button>
       </div>
 
-      <div className='couples-list'>
+      <div className="couples-list">
         <h3>Couples:</h3>
         <ul>
           {couples.map((couple, index) => (
@@ -133,7 +132,7 @@ export const CreateGame: React.FC = () => {
         Créer la partie
       </button>
 
-      {error && <p className='error'>{error}</p>}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };
@@ -155,7 +154,9 @@ export const JoinGame: React.FC = () => {
         setError("Erreur lors du chargement de la partie");
       }
     };
-    fetchGame();
+    if (id) {
+      fetchGame();
+    }
   }, [id]);
 
   const getParticipantStatus = (participantName: string) => {
@@ -203,47 +204,47 @@ export const JoinGame: React.FC = () => {
   }
 
   return (
-    <div className='join-game'>
+    <div className="join-game">
       <h2>Partie de Secret Santacaca</h2>
       <p>Créée par: {game.adminName}</p>
 
-      <div className='participants-status'>
+      <div className="participants-status">
         <h3>Liste des participants:</h3>
         <ul>
           {game.participants.map((participant, index) => (
             <li key={index} className={participant.hasJoined ? "joined" : ""}>
               {participant.name} {getParticipantStatus(participant.name)}
-              {participant.hasDrawn && " ✓"}
+              {participant.hasDrawn && " "}
             </li>
           ))}
         </ul>
-        <p className='legend'>✓ = A déjà tiré un nom</p>
+        <p className="legend"> = A déjà tiré un nom</p>
       </div>
 
       {!hasJoined ? (
-        <div className='form-group'>
+        <div className="form-group">
           <label>Votre prénom:</label>
           <input
-            type='text'
+            type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder='Entrez votre prénom'
+            placeholder="Entrez votre prénom"
           />
           <button onClick={joinGame}>Rejoindre</button>
         </div>
       ) : (
-        <div className='draw-section'>
+        <div className="draw-section">
           {!drawnName ? (
             <button onClick={drawName}>Tirer au sort</button>
           ) : (
-            <p className='drawn-name'>
+            <p className="drawn-name">
               Vous devez faire un cadeau à: {drawnName}
             </p>
           )}
         </div>
       )}
 
-      {error && <p className='error'>{error}</p>}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

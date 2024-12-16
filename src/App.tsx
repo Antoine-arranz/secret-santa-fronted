@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CreateGame, JoinGame } from "./components/Game";
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { CreateGame, JoinGame } from './components/Game';
 import "./styles/Game.css";
 
 function App() {
@@ -27,15 +27,14 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className='App'>
-        <h1>🎄 Secret Santa d'Antibes 🎅</h1>
-        <Routes>
-          <Route path='/' element={<CreateGame />} />
-          <Route path='/game/:id' element={<JoinGame />} />
-        </Routes>
-      </div>
-    </Router>
+    <div className='App'>
+      <h1>🎄 Secret Santa d'Antibes 🎅</h1>
+      <Routes>
+        <Route path='/' element={<CreateGame />} />
+        <Route path='/game/:id' element={<JoinGame />} />
+        <Route path="*" element={<div>Page non trouvée</div>} />
+      </Routes>
+    </div>
   );
 }
 
